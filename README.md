@@ -1,3 +1,9 @@
+# Important note: 1 October 2024
+
+Unfortunately, I have determined I do not have the capacity that is needed to do a great job at maintaining the plugin and have decided to deprecate it from the WordPress repository. I am open to having the plugin adopted by a benevolent maintainer that won't attempt to monetize it but that may be a difficult ask.
+
+Goodbye TOC+ (2011 - 2024).
+
 # Table of Contents Plus
 
 A powerful yet user friendly WordPress plugin that automatically creates a context specific index or table of contents (TOC) for long pages (and custom post types). More than just a table of contents plugin, this plugin can also output a sitemap listing pages and/or categories across your entire site.
