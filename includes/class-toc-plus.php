@@ -93,6 +93,31 @@ if ( ! class_exists( 'TOC_Plus' ) ) :
 			return $this->options;
 		}
 
+        /**
+         * Retrieves the heading text for the Table of Contents.
+         *
+         * This method applies a filter 'toc_heading_text' to allow developers
+         * to modify the heading text, facilitating integration with
+         * translation plugins or custom translation mechanisms.
+         *
+         * @return string The heading text for the TOC.
+         */
+        public function get_heading_text() {
+            $heading_text = $this->options['heading_text'];
+
+            /**
+             * Filter the TOC heading text.
+             *
+             * Developers can use this filter to modify or translate the TOC heading text.
+             *
+             * @since 2408.1
+             *
+             * @param string $heading_text The TOC heading text.
+             */
+            $heading_text = apply_filters( 'toc_heading_text', $heading_text );
+
+            return $heading_text;
+        }
 
 		public function set_option( $options ) {
 			$this->options = array_merge( $this->options, $options );
@@ -154,7 +179,7 @@ if ( ! class_exists( 'TOC_Plus' ) ) :
 		public function shortcode_toc( $attributes ) {
 			$atts = shortcode_atts(
 				[
-					'label'          => $this->options['heading_text'],
+					'label'          => $this->get_heading_text(),
 					'label_show'     => $this->options['visibility_show'],
 					'label_hide'     => $this->options['visibility_hide'],
 					'no_label'       => false,
@@ -771,8 +796,8 @@ if ( ! class_exists( 'TOC_Plus' ) ) :
 	<td>
 		<input type="checkbox" value="1" id="show_heading_text" name="show_heading_text"<?php if ( $this->options['show_heading_text'] ) echo ' checked="checked"'; ?> /><label for="show_heading_text"> <?php esc_html_e( 'Show title on top of the table of contents', 'table-of-contents-plus' ); ?></label><br>
 		<div class="more_toc_options<?php if ( ! $this->options['show_heading_text'] ) echo ' disabled'; ?>">
-			<input type="text" class="regular-text" value="<?php echo esc_attr( $this->options['heading_text'] ); ?>" id="heading_text" name="heading_text">
-			<span class="description"><label for="heading_text"><?php esc_html_e( 'Eg: Contents, Table of Contents, Page Contents', 'table-of-contents-plus' ); ?></label></span><br><br>
+			<input type="text" class="regular-text" value="<?php echo esc_attr( $this->get_heading_text() ); ?>" id="heading_text" name="heading_text">
+			<span class="description"><label for="heading_text"><?php esc_html_e( 'E.g., Contents, Table of Contents, Page Contents. This text can be translated using the \'toc_heading_text\' filter.', 'table-of-contents-plus' ); ?></label></span><br><br>
 
 			<input type="checkbox" value="1" id="visibility" name="visibility"<?php if ( $this->options['visibility'] ) echo ' checked="checked"'; ?> /><label for="visibility"> <?php esc_html_e( 'Allow the user to toggle the visibility of the table of contents', 'table-of-contents-plus' ); ?></label><br>
 			<div class="more_toc_options<?php if ( ! $this->options['visibility'] ) echo ' disabled'; ?>">
@@ -1661,7 +1686,7 @@ if ( ! class_exists( 'TOC_Plus' ) ) :
 						// add container, toc title and list items
 						$html = '<div id="toc_container" class="' . htmlentities( $css_classes, ENT_COMPAT, 'UTF-8' ) . '">';
 						if ( $this->options['show_heading_text'] ) {
-							$toc_title = htmlentities( $this->options['heading_text'], ENT_COMPAT, 'UTF-8' );
+							$toc_title = htmlentities( $this->get_heading_text(), ENT_COMPAT, 'UTF-8' );
 							if ( false !== strpos( $toc_title, '%PAGE_TITLE%' ) ) {
 								$toc_title = str_replace( '%PAGE_TITLE%', get_the_title(), $toc_title );
 							}
