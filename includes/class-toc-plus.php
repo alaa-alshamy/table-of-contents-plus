@@ -796,7 +796,7 @@ if ( ! class_exists( 'TOC_Plus' ) ) :
 	<td>
 		<input type="checkbox" value="1" id="show_heading_text" name="show_heading_text"<?php if ( $this->options['show_heading_text'] ) echo ' checked="checked"'; ?> /><label for="show_heading_text"> <?php esc_html_e( 'Show title on top of the table of contents', 'table-of-contents-plus' ); ?></label><br>
 		<div class="more_toc_options<?php if ( ! $this->options['show_heading_text'] ) echo ' disabled'; ?>">
-			<input type="text" class="regular-text" value="<?php echo esc_attr( $this->get_heading_text() ); ?>" id="heading_text" name="heading_text">
+            <input type="text" class="regular-text" value="<?php echo esc_attr( $this->options['heading_text'] ); ?>" id="heading_text" name="heading_text">
 			<span class="description"><label for="heading_text"><?php esc_html_e( 'E.g., Contents, Table of Contents, Page Contents. This text can be translated using the \'toc_heading_text\' filter.', 'table-of-contents-plus' ); ?></label></span><br><br>
 
 			<input type="checkbox" value="1" id="visibility" name="visibility"<?php if ( $this->options['visibility'] ) echo ' checked="checked"'; ?> /><label for="visibility"> <?php esc_html_e( 'Allow the user to toggle the visibility of the table of contents', 'table-of-contents-plus' ); ?></label><br>
